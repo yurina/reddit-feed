@@ -1,0 +1,69 @@
+<div *ngIf="!selectedEntry">
+  <h2>All entries</h2>
+
+  <div class="section">
+    <label>Current sub-reddit:
+      <input [(ngModel)]="subReddit" placeholder="sub-reddit">
+      <button class="pagination" (click)="updateFeed()">Change sub-reddit</button>
+    </label>
+  </div>
+
+  <div class="section">
+    <mat-button-toggle-group #group="matButtonToggleGroup" [(ngModel)]="limit">
+      <mat-button-toggle value="5" (click)="updateFeed()">5</mat-button-toggle>
+      <mat-button-toggle value="10" (click)="updateFeed()">10</mat-button-toggle>
+      <mat-button-toggle value="25" (click)="updateFeed()">25</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="example-selected-value">Items per page: {{limit}}</div>
+  </div>
+
+  <div class="section">
+    <button class="pagination" *ngIf="feedData.before && page !== 1" (click)="prevPage(feedData.before)">Prev page</button>
+    <span class="paging">Page: {{page}}</span>
+    <button class="pagination" *ngIf="feedData.after" (click)="nextPage(feedData.after)">Next page</button>
+  </div>
+
+  <div class="entries">
+    <mat-card *ngFor="let entry of entries" class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{entry.data.title}}</mat-card-title>
+        <mat-card-subtitle>Author: {{entry.data.author}}</mat-card-subtitle>
+      </mat-card-header>
+      <img *ngIf="entry.data.thumbnail !== 'self'" mat-card-image src="{{entry.data.thumbnail}}" alt="Photo of {{entry.data.title}}">
+      <mat-card-content>
+        <p>Created: {{(entry.data.created * 1000) | date }}</p>
+        <p>Comments: {{entry.data.num_comments}}</p>
+        <p>Score: {{entry.data.score}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="onSelect(entry)">Show details</button>
+        <button mat-button><a target="_blank" href="{{redditUrl + entry.data.permalink}}">Open Original Post</a></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="section">
+    <button class="pagination" *ngIf="feedData.before && page !== 1" (click)="prevPage(feedData.before)">Prev page</button>
+    <span class="paging">Page: {{page}}</span>
+    <button class="pagination" *ngIf="feedData.after" (click)="nextPage(feedData.after)">Next page</button>
+  </div>
+</div>
+
+<div *ngIf="selectedEntry">
+  <div class="entries">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{selectedEntry.data.title}}</mat-card-title>
+        <mat-card-subtitle>Author: {{selectedEntry.data.author}}</mat-card-subtitle>
+      </mat-card-header>
+      <img *ngIf="selectedEntry.data.thumbnail !== 'self'" mat-card-image src="{{selectedEntry.data.thumbnail}}" alt="Photo of {{selectedEntry.data.title}}">
+      <mat-card-content>
+        <p><span [innerHTML]="selectedEntry.data.selftext | nl2br: true"></span></p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="clearSelected()">Go Back</button>
+        <button mat-button><a target="_blank" href="{{redditUrl + selectedEntry.data.permalink}}">Open Original Post</a></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

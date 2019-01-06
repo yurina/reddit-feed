@@ -1,0 +1,8 @@
+<div *ngIf="entry">
+  <h2>{{entry.title | uppercase}}</h2>
+  <div>text: <span [innerHTML]="entry.selftext | nl2br: true"></span></div>
+  <div><label>score:
+    <input [(ngModel)]="entry.score" placeholder="score">
+  </label></div>
+</div>
+<button (click)="goBack()">go back</button>

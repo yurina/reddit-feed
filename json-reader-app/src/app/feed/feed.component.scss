@@ -1,0 +1,58 @@
+/* FeedComponent's private CSS styles */
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+.section {
+  margin: 20px 0;
+}
+.entries {
+  margin: 0 auto;
+  list-style-type: none;
+  padding: 0;
+  width: 90%;
+}
+.entries .mat-button {
+  background-color: #eee;
+}
+.entries a {
+  color: #888;
+  text-decoration: none;
+  position: relative;
+  display: block;
+}
+.enries a:hover {
+  color:#607D8B;
+}
+.example-card {
+  max-width: 600px;
+  margin-top: 30px;
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+button.pagination {
+  margin-top: 20px;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+button.pagination:hover {
+  background-color: #cfd8dc;
+}
+button.pagination:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
+.paging {
+  margin: 0 10px;
+  font-size: 1em;
+  color: #999;
+  text-align: center;
+}
