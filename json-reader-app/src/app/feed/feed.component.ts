@@ -51,7 +51,7 @@ export class FeedComponent implements OnInit {
           this.feedData = data['data'];
           this.entries = data['data']['children'];
           this.page = this.feedService.page;
-          // Leave it here to show that with default limit = 10 reddit gives me 12 entries :(
+          // Leave it here to show that with default limit = 10 reddit gives me 11 or 12 entries :(
           console.log(this.feedData);
       });
   }

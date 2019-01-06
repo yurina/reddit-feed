@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -10,19 +11,14 @@ import { AppComponent } from './app.component';
 import { FeedComponent } from './feed/feed.component';
 import { EntryDetailComponent } from './entry-detail/entry-detail.component';
 import { FeedService } from './feed.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessagesComponent } from './messages/messages.component';
-import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     FeedComponent,
     EntryDetailComponent,
-    MessagesComponent,
-    DashboardComponent
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +29,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatCardModule,
     MatButtonModule,
     MatButtonToggleModule,
-    AppRoutingModule,
     HttpClientModule,
   ],
   providers: [FeedService],

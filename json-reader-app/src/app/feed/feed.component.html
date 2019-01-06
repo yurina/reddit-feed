@@ -3,8 +3,8 @@
 
   <div class="section">
     <label>Current sub-reddit:
-      <input [(ngModel)]="subReddit" placeholder="sub-reddit">
-      <button class="pagination" (click)="updateFeed()">Change sub-reddit</button>
+      <input [(ngModel)]="subReddit" (keydown.enter)="subReddit ? updateFeed() : ''" placeholder="sub-reddit">
+      <button class="pagination" (click)="subReddit ? updateFeed() : ''">Change sub-reddit</button>
     </label>
   </div>
 
@@ -29,7 +29,7 @@
         <mat-card-title>{{entry.data.title}}</mat-card-title>
         <mat-card-subtitle>Author: {{entry.data.author}}</mat-card-subtitle>
       </mat-card-header>
-      <img *ngIf="entry.data.thumbnail !== 'self'" mat-card-image src="{{entry.data.thumbnail}}" alt="Photo of {{entry.data.title}}">
+      <img *ngIf="entry.data.thumbnail !== 'self' && entry.data.thumbnail !== 'spoiler' && entry.data.thumbnail !== 'default'" mat-card-image src="{{entry.data.thumbnail}}" alt="Photo of {{entry.data.title}}">
       <mat-card-content>
         <p>Created: {{(entry.data.created * 1000) | date }}</p>
         <p>Comments: {{entry.data.num_comments}}</p>
@@ -56,7 +56,7 @@
         <mat-card-title>{{selectedEntry.data.title}}</mat-card-title>
         <mat-card-subtitle>Author: {{selectedEntry.data.author}}</mat-card-subtitle>
       </mat-card-header>
-      <img *ngIf="selectedEntry.data.thumbnail !== 'self'" mat-card-image src="{{selectedEntry.data.thumbnail}}" alt="Photo of {{selectedEntry.data.title}}">
+      <img *ngIf="selectedEntry.data.thumbnail !== 'self' && selectedEntry.data.thumbnail !== 'spoiler' && selectedEntry.data.thumbnail !== 'default'" mat-card-image src="{{selectedEntry.data.thumbnail}}" alt="Photo of {{selectedEntry.data.title}}">
       <mat-card-content>
         <p><span [innerHTML]="selectedEntry.data.selftext | nl2br: true"></span></p>
       </mat-card-content>

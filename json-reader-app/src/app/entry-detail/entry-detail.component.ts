@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { FeedService } from '../feed.service';
@@ -15,7 +14,6 @@ export class EntryDetailComponent implements OnInit {
   entry: Entry;
 
   constructor(
-    private route: ActivatedRoute,
     private feedService: FeedService,
     private location: Location
   ) { }

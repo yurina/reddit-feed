@@ -14,6 +14,7 @@ export class FeedService {
   feedModel: FeedModel[];
   public redditUrl = 'https://www.reddit.com';
   public subReddit = 'sweden';
+  public page = 1;
 
   public options = {
     count: '0',
@@ -22,59 +23,31 @@ export class FeedService {
     after: null
   };
 
-  public page = 1;
-
   constructor(
     private http: HttpClient,
     private messageService: MessageService
   ) { }
 
-  // getFeedData(): Observable<FeedModel[]> {
-  //   // TODO: send the message _after_ fetching the entries
-  //   // 
-  //   // return of(ENTRIES);
-
-  //   return this.http.get<FeedModel[]>(this.feedUrl).pipe(
-  //     map(feedModel => this.feedModel = feedModel)
-  //       //JSON.parse((<FeedModel>feedModel).data))
-  //   );
-  // }
   getFeedModel(): Observable<FeedModel[]> {
-    if (this.page !== 1) {
-      this.options.count = (+this.options.limit * this.page).toString();
+    if (this.subReddit === '') {
+      // Message Service can be used as logs
+      this.messageService.add('<br><br>FeedService: tried to search for empty sub-reddit');
+    } else {
+      if (this.page !== 1) {
+        this.options.count = (+this.options.limit * this.page).toString();
+      }
+      // Message Service can be used as logs
+      this.messageService.add('<br><br>FeedService: fetched entries with params: <br>' +
+        ' sub-reddit => ' + this.subReddit + ',<br>' +
+        ' entries per page => ' + this.options.limit + ',<br>' +
+        ' page => ' + this.page + ',<br>' +
+        '');
+
+      return this.http.get<FeedModel[]>(this.redditUrl + '/r/' + this.subReddit + '.json', {
+          params: this.options
+        }).pipe(
+          map(data => this.feedModel = data)
+        );
     }
-    // Message Service can be used as logs
-    this.messageService.add('<br><br>FeedService: fetched entries with params: <br>' +
-      ' sub-reddit => ' + this.subReddit + ',<br>' +
-      ' entries per page => ' + this.options.limit + ',<br>' +
-      ' page => ' + this.page + ',<br>' +
-      '');
-
-    return this.http.get<FeedModel[]>(this.redditUrl + '/r/' + this.subReddit + '.json', {
-        params: this.options
-      })
-      .pipe(map(data => this.feedModel = data))
-      ;
-    // .pipe(
-    //   map(FeedModel => this.feedModel = FeedModel)
-    // );
-    // this.http.get(this.feedUrl).
-    // subscribe(data => {
-    //   this.feedModel = data['data'];
-    //   console.log(data);
-    // });
   }
-  // getFeedData(): Observable<FeedModel[]> {
-  //   return this.http.get<FeedModel[]>(this.feedUrl)
-  //     .pipe(
-  //       map(res => JSON.parse((<any>res)._body))
-  //     );
-  // }
-
-  // getEntry(id: number): Observable<Entry> {
-  //   const url = `${this.feedUrl}/${id}`;
-  //   // this.messageService.add(`FeedService: fetched entry id=${id}`);
-  //   // return of(ENTRIES.find(entry => entry.id === id));
-  //   return this.http.get<Entry>(url);
-  // }
 }
